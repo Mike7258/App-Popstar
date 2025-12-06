@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:popstar_database/screens/movies_screen.dart'; // Importar la pantalla de películas
-import 'package:popstar_database/screens/search_screen.dart'; // Importar la pantalla de búsqueda
+import 'package:popstar_database/routes/app_routes.dart';
 import 'package:popstar_database/themes/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
