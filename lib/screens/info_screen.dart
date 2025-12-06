@@ -8,7 +8,7 @@ class InfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Información del Desarrollador'),
+        title: const Text('Información de los Desarrolladores'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -17,29 +17,25 @@ class InfoScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // 1. CircleAvatar() con información personal
                 const CircleAvatar(
                   radius: 70,
                   backgroundColor: AppTheme.accentColor,
-                  backgroundImage: NetworkImage('https://placehold.co/150x150/504E76/C4C3E3/png?text=TU+FOTO'),
-                  // NOTA: Reemplaza la URL de arriba con tu propia imagen.
+                  backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhgLbMsmN8e5xdiuUkPylNLeMPrRy2UeVJo10RZ8PQLrggEpHUOih6ZMXPBFtUFPaUTum8jovHHd_GSqeGtZJWtxCqjTehPw-kgfgri_I&s=10'),
                 ),
                 const SizedBox(height: 20),
                 
-                // 2. Ficha de Desarrollador
                 Text(
-                  'Desarrollador Principal',
+                  'Desarrolladores',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Nombre del Estudiante', // ¡Reemplaza con tu nombre!
+                  'Miguel Luna y Laury Guerrero',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
                 ),
                 
                 const SizedBox(height: 30),
 
-                // 3. Información de la App (Popstar)
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -52,7 +48,7 @@ class InfoScreen extends StatelessWidget {
                         ),
                         const Divider(color: AppTheme.primaryColor),
                         const Text(
-                          'Popstar es una aplicación móvil desarrollada para la clase de Programación Móvil, utilizando Flutter y la API pública de The Movie Database (TMDB).',
+                          'Popstar es una aplicación móvil desarrollada para la clase de Programación III, utilizando Flutter y unos cerebos bastante malos...',
                           textAlign: TextAlign.justify,
                           style: TextStyle(fontSize: 14, color: AppTheme.primaryColor),
                         ),
@@ -73,7 +69,6 @@ class InfoScreen extends StatelessWidget {
                 
                 const SizedBox(height: 20),
 
-                // Mensaje final
                 Text(
                   '¡Califica, Descubre, Disfruta!',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(

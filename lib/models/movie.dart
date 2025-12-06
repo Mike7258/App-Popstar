@@ -8,7 +8,7 @@ class Movie {
   final String backdropPath;
   final double voteAverage;
   final String releaseDate;
-  final List<Cast> cast; // Para almacenar el casting en el detalle
+  final List<Cast> cast; 
 
   Movie({
     required this.id,
@@ -21,7 +21,6 @@ class Movie {
     this.cast = const [],
   });
 
-  // Factory constructor para crear una instancia de Movie desde un JSON
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
       id: json['id'] ?? 0,
@@ -31,12 +30,10 @@ class Movie {
       backdropPath: json['backdrop_path'] ?? '',
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       releaseDate: json['release_date'] ?? 'N/A',
-      // El casting se añade por separado en la pantalla de detalle
       cast: [], 
     );
   }
 
-  // Método para crear una nueva instancia con el casting añadido
   Movie copyWith({
     List<Cast>? cast,
   }) {

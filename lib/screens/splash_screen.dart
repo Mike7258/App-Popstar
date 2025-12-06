@@ -13,18 +13,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Navega a la HomeScreen después de 6 segundos.
-    Future.delayed(const Duration(seconds: 6), () { // <-- CAMBIADO DE 2 A 6 SEGUNDOS
-      // Usamos pushReplacementNamed para que el usuario no pueda volver al Splash
+    Future.delayed(const Duration(seconds: 6), () { 
       Navigator.of(context).pushReplacementNamed(AppRoutes.initialRoute); 
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Usamos los colores de la identidad visual de Popstar
     return Scaffold(
-      backgroundColor: AppTheme.primaryColor, // Fondo Morado Oscuro
+      backgroundColor: AppTheme.primaryColor, 
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,9 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             
             const SizedBox(height: 50),
-            // Indicador de carga
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.accentColor), // Color Naranja
+              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.accentColor),
             ),
             const SizedBox(height: 20),
             Text(

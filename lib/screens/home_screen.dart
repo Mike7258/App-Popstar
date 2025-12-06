@@ -2,110 +2,162 @@ import 'package:flutter/material.dart';
 import 'package:popstar_database/routes/app_routes.dart';
 import 'package:popstar_database/themes/app_theme.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  // Índice de la pestaña actualmente seleccionada
-  int _selectedIndex = 0;
-
-  // Lista de widgets (contenidos) que se mostrarán en el cuerpo (body) del Scaffold
-  // ¡Estos widgets ya NO contienen un Scaffold interno!
-  static const List<Widget> _widgetContents = <Widget>[
-    _HomeContent(), // 0: Contenido del Home
-    MoviesScreen(), // 1: Contenido de todas las películas
-    SearchScreen(), // 2: Contenido de búsqueda
-  ];
   
-  // Títulos para el AppBar
-  static const List<String> _pageTitles = <String>[
-    'Inicio Popstar',
-    'Todas las Películas',
-    'Buscar Películas',
-  ];
-
-  // Función que se llama cuando se toca un ítem del BottomNavigationBar
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar único que cambia de título según la pestaña seleccionada
-      appBar: AppBar(
-        title: Text(_pageTitles[_selectedIndex]),
-        automaticallyImplyLeading: false,
-      ),
-      
-      // Muestra el widget correspondiente al índice seleccionado (SOLO EL CUERPO/CONTENIDO)
-      body: Center(
-        child: _widgetContents.elementAt(_selectedIndex),
-      ),
-      
-      // Barra de navegación inferior
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: 'Inicio',
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'POPSTAR',
+                      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        color: AppTheme.accentColor, 
+                      ),
+                    ),
+
+                    IconButton(
+                      icon: const Icon(Icons.info_outline, color: AppTheme.primaryColor, size: 30),
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.infoRoute);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                child: Text(
+                  'Películas Recientes',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 22),
+                ),
+              ),
+
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: _MoviePlaceholderCard(index: index),
+                    );
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 40),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                child: Text(
+                  'Mejor Calificadas',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 22),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: List.generate(3, (index) => _RatingPlaceholderRow(index: index)),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie_filter),
-            label: 'Películas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Buscar',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: AppTheme.accentColor, // Color Naranja
-        unselectedItemColor: AppTheme.lightPurple, // Lila claro
-        backgroundColor: AppTheme.primaryColor, // Fondo Morado
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed, // Mantiene el color de fondo en todos los ítems
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
 }
 
-// Widget interno para el contenido de la pestaña "Inicio"
-// IMPORTANTE: Ya no retorna un Scaffold, solo el contenido del cuerpo (body).
-class _HomeContent extends StatelessWidget {
-  const _HomeContent();
+class _MoviePlaceholderCard extends StatelessWidget {
+  final int index;
+  const _MoviePlaceholderCard({required this.index});
 
   @override
   Widget build(BuildContext context) {
-    // Retornamos directamente el contenido de la pantalla, sin Scaffold ni AppBar.
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.star_rate_rounded,
-            size: 80,
-            color: AppTheme.accentColor.withOpacity(0.7),
+    return Container(
+      width: 120,
+      decoration: BoxDecoration(
+        color: AppTheme.lightPurple,
+        borderRadius: BorderRadius.circular(15.0),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.primaryColor.withOpacity(0.15),
+            blurRadius: 6,
+            offset: const Offset(0, 4),
           ),
-          const SizedBox(height: 20),
-          Text(
-            '¡Bienvenido a Popstar!',
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.0),
-            child: Text(
-              'Usa la barra de navegación inferior para ver todas las películas o buscar un título específico.',
+        ],
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.theaters, size: 50, color: AppTheme.primaryColor),
+            const SizedBox(height: 8),
+            Text(
+              'Pelicula ${index + 1}',
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppTheme.primaryColor),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppTheme.primaryColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RatingPlaceholderRow extends StatelessWidget {
+  final int index;
+  const _RatingPlaceholderRow({required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15.0),
+      child: Row(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: AppTheme.oliveGreen.withOpacity(0.7),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: const Center(child: Text('POSTER', style: TextStyle(fontSize: 10, color: Colors.white))),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Título de Éxito ${index + 1}',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 16),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: const [
+                    Icon(Icons.star, color: AppTheme.accentColor, size: 18),
+                    Text(' 8.5/10', style: TextStyle(color: AppTheme.primaryColor)),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

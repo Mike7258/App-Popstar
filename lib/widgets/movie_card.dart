@@ -11,10 +11,8 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Usamos el diseño de Card de la identidad visual
     return GestureDetector(
       onTap: () {
-        // Navegar a la pantalla de detalles, pasando el objeto Movie
         Navigator.pushNamed(
           context,
           AppRoutes.detailsRoute,
@@ -22,17 +20,15 @@ class MovieCard extends StatelessWidget {
         );
       },
       child: Card(
-        // El color y el shape se definen en AppTheme
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Imagen o Póster de la película
             Expanded(
               child: ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(15.0)),
                 child: movie.posterPath.isNotEmpty
                     ? FadeInImage(
-                        placeholder: const AssetImage('assets/popcorn_placeholder.png'), // Placeholder local si tienes uno
+                        placeholder: const AssetImage('assets/popcorn_placeholder.png'),
                         image: NetworkImage('${ApiConfig.baseImageUrl}${movie.posterPath}'),
                         fit: BoxFit.cover,
                         width: double.infinity,
@@ -44,7 +40,6 @@ class MovieCard extends StatelessWidget {
               ),
             ),
             
-            // 2. Información de la película
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -59,7 +54,6 @@ class MovieCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   
-                  // Rating (Puntuación)
                   Row(
                     children: [
                       Icon(Icons.star, color: AppTheme.accentColor, size: 16),
@@ -69,7 +63,6 @@ class MovieCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      // Icono de palomitas (Popstar)
                       Icon(Icons.local_movies, color: AppTheme.oliveGreen, size: 16),
                     ],
                   ),

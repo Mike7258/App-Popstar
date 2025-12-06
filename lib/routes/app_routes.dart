@@ -11,13 +11,13 @@ class AppRoutes {
   static const String initialRoute = 'home'; 
   static const String detailsRoute = 'details';
   static const String infoRoute = 'info';
-  static const String moviesRoute = 'movies'; // Nueva ruta: Todas las películas
-  static const String searchRoute = 'search'; // Nueva ruta: Búsqueda
+  static const String moviesRoute = 'movies'; 
+  static const String searchRoute = 'search'; 
 
   // Mapa de rutas
   static Map<String, Widget Function(BuildContext)> routes = {
-    splashRoute: (context) => const SplashScreen(), // Pantalla de carga
-    initialRoute: (context) => const HomeScreen(), // Pantalla principal (con navegación)
+    splashRoute: (context) => const SplashScreen(), 
+    initialRoute: (context) => const HomeScreen(), 
     detailsRoute: (context) => const DetailsScreen(), 
     infoRoute: (context) => const InfoScreen(),
   };
@@ -25,7 +25,6 @@ class AppRoutes {
   // Función para generar una ruta de error (por si acaso)
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
-      // Si la ruta no existe, vuelve al Home
       builder: (context) => const HomeScreen(), 
     );
   }

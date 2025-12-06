@@ -17,9 +17,8 @@ class CastList extends StatelessWidget {
       );
     }
     
-    // Muestra una lista horizontal de los miembros del casting
     return SizedBox(
-      height: 150, // Altura fija para el ListView horizontal
+      height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: cast.length,
@@ -30,12 +29,11 @@ class CastList extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10.0),
             child: Column(
               children: [
-                // Avatar del Actor/Actriz
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: actor.profilePath.isNotEmpty
                       ? FadeInImage(
-                          placeholder: const AssetImage('assets/person_placeholder.png'), // Placeholder local
+                          placeholder: const AssetImage('assets/person_placeholder.png'), 
                           image: NetworkImage('${ApiConfig.baseImageUrl}${actor.profilePath}'),
                           width: 80,
                           height: 80,
@@ -63,8 +61,7 @@ class CastList extends StatelessWidget {
                         ),
                 ),
                 const SizedBox(height: 5),
-                
-                // Nombre del Actor/Actriz
+
                 SizedBox(
                   width: 80,
                   child: Text(
@@ -76,7 +73,7 @@ class CastList extends StatelessWidget {
                   ),
                 ),
                 
-                // Nombre del Personaje
+                // Nombre del Personaje xd
                 SizedBox(
                   width: 80,
                   child: Text(

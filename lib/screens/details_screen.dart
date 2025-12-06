@@ -9,29 +9,23 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Recuperar el objeto Movie pasado como argumento
     final Movie initialMovie = ModalRoute.of(context)!.settings.arguments as Movie;
     final MovieService movieService = MovieService();
 
     return Scaffold(
       body: FutureBuilder<Movie>(
-        // Cargar el detalle del casting, ya que no estaba en la lista inicial
         future: movieService.getMovieCast(initialMovie.id).then((castList) {
-          // Retornar la película inicial, pero con la lista de casting actualizada
           return initialMovie.copyWith(cast: castList);
         }),
         builder: (context, snapshot) {
-          // Usamos la película inicial hasta que el casting esté cargado
           final movie = snapshot.data ?? initialMovie;
 
           return CustomScrollView(
             slivers: [
-              // 1. App Bar tipo 'Sliver' con la imagen de fondo (Backdrop)
               _CustomAppBar(movie: movie),
 
               SliverList(
                 delegate: SliverChildListDelegate([
-                  // 2. Título y Puntuación
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     child: Row(
@@ -57,7 +51,6 @@ class DetailsScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // 3. Descripción (Overview)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                     child: Text(
@@ -76,7 +69,6 @@ class DetailsScreen extends StatelessWidget {
                   
                   const SizedBox(height: 20),
 
-                  // 4. Casting
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
@@ -84,8 +76,7 @@ class DetailsScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
-                  
-                  // Muestra el casting si ya está cargado o un indicador de carga
+
                   snapshot.connectionState == ConnectionState.waiting
                       ? const Center(child: Padding(
                           padding: EdgeInsets.all(20.0),
@@ -93,7 +84,7 @@ class DetailsScreen extends StatelessWidget {
                         ))
                       : Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                          child: CastList(cast: movie.cast), // Widget para la lista horizontal de casting
+                          child: CastList(cast: movie.cast), 
                         ),
 
                   const SizedBox(height: 30),
